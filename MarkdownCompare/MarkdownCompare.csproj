@@ -35,8 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonMark">
-      <HintPath>..\packages\CommonMark.NET.0.1.0-beta\lib\net40-client\CommonMark.dll</HintPath>
+    <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CommonMark.NET.0.1.1\lib\net40-client\CommonMark.dll</HintPath>
     </Reference>
     <Reference Include="CommonMarkSharp">
       <HintPath>..\packages\CommonMarkSharp.0.0.2\lib\net45\CommonMarkSharp.dll</HintPath>
