@@ -22,7 +22,7 @@ namespace MarkdownCompare
 
         static void Main(string[] args)
         {
-            var iterations = 10;
+            var iterations = 30;
             var delegateNames = new string[]
             {
                 "Baseline",
