@@ -59,9 +59,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Tests\doc_medium.text" />
+    <None Include="Tests\doc_small.text" />
+    <Content Include="Tests\empty.html" />
+    <None Include="Tests\empty.text" />
+    <None Include="Tests\mini.text" />
+    <None Include="Tests\progit.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="spec.txt" />
+    <Content Include="Tests\Google.html" />
+    <Content Include="Tests\imdb.html" />
+    <Content Include="Tests\spec.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
