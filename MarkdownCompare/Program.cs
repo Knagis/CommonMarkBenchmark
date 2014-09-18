@@ -106,22 +106,30 @@ namespace MarkdownCompare
                     using (var reader = new System.IO.StreamReader(file.FullName))
                     using (var writer = new System.IO.StringWriter())
                     {
-                        var start = sw.ElapsedMilliseconds;
-
+                        long timer = 0;
                         try
                         {
-                            delegates[j](reader, writer);
+                            var result = Task.Run(() =>
+                            {
+                                timer = sw.ElapsedMilliseconds;
+                                delegates[j](reader, writer);
+                                timer = sw.ElapsedMilliseconds - timer;
+                            }).Wait(30000);
+
+                            if (!result)
+                            {
+                                errors[j] = "Timeout - did not complete in 30 seconds.";
+                                timer = 30000;
+                            }
                         }
                         catch(Exception ex)
                         {
                             errors[j] = ex.Message;
                         }
 
-                        var finish = sw.ElapsedMilliseconds;
-
                         // skip the first iteration - assume it is a warmup
                         if (i >= 0)
-                            results[j] += (finish - start);
+                            results[j] += timer;
                     }
                 }
             }
