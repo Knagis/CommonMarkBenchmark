@@ -59,12 +59,12 @@ namespace MarkdownCompare
 
         private static void ExecuteBenchmark(System.IO.FileInfo file, string[] delegateNames, Action<System.IO.TextReader, System.IO.TextWriter>[] delegates)
         {
-            // approximate the iterations based on file size (so that each file is read for ~10 MB)
-            var iterations = 10 * 1024 * 1024 / file.Length;
+            // approximate the iterations based on file size (so that each file is read for ~5 MB)
+            var iterations = 5 * 1024 * 1024 / file.Length;
             if (iterations < 3)
                 iterations = 3;
-            if (iterations > 10000)
-                iterations = 10000;
+            if (iterations > 2000)
+                iterations = 2000;
 
             Console.Write(System.IO.Path.GetFileName(file.Name));
             Console.Write("    ");
@@ -83,8 +83,17 @@ namespace MarkdownCompare
             var errors = new string[delegates.Length];
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
+            long last = 0;
             for (var i = -1; i < iterations; i++)
             {
+                if (sw.ElapsedMilliseconds / 500 > last)
+                {
+                    Console.CursorLeft = 0;
+                    Console.Write("{0,6:P1}", (decimal)i / iterations);
+                    Console.CursorLeft = 0;
+                    last = sw.ElapsedMilliseconds / 500;
+                }
+
                 for (var j = 0; j < delegates.Length; j++)
                 {
                     // if the particular parser takes too long, just assume it will take just as long next time and skip it.
