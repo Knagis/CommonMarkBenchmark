@@ -63,8 +63,8 @@ namespace MarkdownCompare
             var iterations = 5 * 1024 * 1024 / file.Length;
             if (iterations < 3)
                 iterations = 3;
-            if (iterations > 2000)
-                iterations = 2000;
+            if (iterations > 10000)
+                iterations = 10000;
 
             Console.Write(System.IO.Path.GetFileName(file.Name));
             Console.Write("    ");
