@@ -99,7 +99,8 @@ namespace MarkdownCompare
                     // if the particular parser takes too long, just assume it will take just as long next time and skip it.
                     if (results[j] > 20000)
                     {
-                        results[j] = (long)((decimal)results[j] / i * (i + 1));
+                        if (i > 0)
+                            results[j] = (long)((decimal)results[j] / i * (i + 1));
                         continue;
                     }
 
@@ -121,6 +122,13 @@ namespace MarkdownCompare
                                 errors[j] = "Timeout - did not complete in 30 seconds.";
                                 timer = 30000;
                             }
+
+                            // make sure that GC performing on objects from one library does not impact the next.
+                            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);
+                        }
+                        catch(AggregateException ex)
+                        {
+                            errors[j] = ex.InnerExceptions[0].Message;
                         }
                         catch(Exception ex)
                         {
@@ -128,7 +136,7 @@ namespace MarkdownCompare
                         }
 
                         // skip the first iteration - assume it is a warmup
-                        if (i >= 0)
+                        if (i >= 0 || timer > 20000)
                             results[j] += timer;
                     }
                 }
