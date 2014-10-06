@@ -22,6 +22,8 @@ namespace MarkdownCompare
 
         static void Main(string[] args)
         {
+            System.Diagnostics.Process.GetCurrentProcess().PriorityClass = System.Diagnostics.ProcessPriorityClass.High;
+
             var delegateNames = new string[]
             {
                 "Baseline",
