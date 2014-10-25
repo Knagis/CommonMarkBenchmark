@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CommonMark.NET.0.4.0\lib\net45\CommonMark.dll</HintPath>
+      <HintPath>..\packages\CommonMark.NET.0.4.2\lib\net45\CommonMark.dll</HintPath>
     </Reference>
     <Reference Include="CommonMarkSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -61,6 +61,7 @@
     <None Include="packages.config" />
     <None Include="Tests\doc_medium.text" />
     <None Include="Tests\doc_small.text" />
+    <Content Include="Tests\emphasis.txt" />
     <Content Include="Tests\empty.html" />
     <None Include="Tests\empty.text" />
     <None Include="Tests\mini.text" />

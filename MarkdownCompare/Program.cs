@@ -53,8 +53,17 @@ namespace MarkdownCompare
                 return;
             }
 
+            var cmsharp = delegates[2];
             foreach (var file in dir.GetFiles().OrderBy(o => o.Length))
             {
+                // CommonMarkSharp throws a stack overflow exception for this case.
+                // the runtime exception of this type cannot be caught but a custom exception can.
+                // this needs to be revisited after CommonMarkSharp is updated.
+                if (file.Name == "emphasis.txt")
+                    delegates[2] = (a, b) => { throw new StackOverflowException(); };
+                else
+                    delegates[2] = cmsharp;
+
                 ExecuteBenchmark(file, delegateNames, delegates);
             }
         }
