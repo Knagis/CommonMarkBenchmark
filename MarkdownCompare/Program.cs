@@ -30,7 +30,8 @@ namespace MarkdownCompare
                 "CommonMark.NET",
                 "CommonMarkSharp",
                 "MarkdownSharp",
-                "MarkdownDeep"
+                "MarkdownDeep",
+                "MoonShine (sundown)",
             };
             var delegates = new Action<System.IO.TextReader, System.IO.TextWriter>[]
             {
@@ -38,7 +39,8 @@ namespace MarkdownCompare
                 (a, b) => CommonMark.CommonMarkConverter.Convert(a, b),
                 (a, b) => new CommonMarkSharp.CommonMark().RenderAsHtml(a, b),
                 (a, b) => b.Write(new MarkdownSharp.Markdown().Transform(a.ReadToEnd())),
-                (a, b) => b.Write(new MarkdownDeep.Markdown().Transform(a.ReadToEnd()))
+                (a, b) => b.Write(new MarkdownDeep.Markdown().Transform(a.ReadToEnd())),
+                (a, b) => b.Write(Sundown.MoonShine.Markdownify(a.ReadToEnd(), smartypants: false)),
             };
 
             Console.WriteLine("All times are shown in milliseconds.");
@@ -74,8 +76,8 @@ namespace MarkdownCompare
             var iterations = 5 * 1024 * 1024 / file.Length;
             if (iterations < 3)
                 iterations = 3;
-            if (iterations > 10000)
-                iterations = 10000;
+            if (iterations > 5000)
+                iterations = 5000;
 
             Console.Write(System.IO.Path.GetFileName(file.Name));
             Console.Write("    ");
